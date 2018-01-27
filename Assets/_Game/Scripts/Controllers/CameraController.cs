@@ -41,12 +41,11 @@ public class CameraController : MonoBehaviour
         CameraDistance = myCamera.WorldToViewportPoint(TargetObject.position);
     }
 
-
     private void Update()
     {
         if (TargetObject)
         {
-            Vector3 delta = TargetObject.position - myCamera.ViewportToWorldPoint(new Vector3(0.5f, 0.5f, CameraDistance.z));
+            Vector3 delta = TargetObject.position - myCamera.ViewportToWorldPoint(new Vector3(0.5f, 0.5f, CameraDistance.z / 1.75f));
             Vector3 destination = transform.position + delta + new Vector3(0, CameraHeightOffset, 0);
             Vector3 distanceToNewObj = (transform.position - destination);
 
@@ -72,19 +71,19 @@ public class CameraController : MonoBehaviour
             transform.position = Vector3.SmoothDamp(transform.position, destination, ref velocity, DampTime);
         }
 
-        FollowMouseAngle();
+        //FollowMouseAngle();
 
     }
 
-    public void FollowMouseAngle()
-    {
-        if (!MyGameManager._instance.isKeyboardControls) { return; }
+    //public void FollowMouseAngle()
+    //{
+    //    if (!MyGameManager._instance.isKeyboardControls) { return; }
 
-        yaw += mouseSpeedH * Input.GetAxis("Mouse X");
-        pitch -= mouseSpeedV * Input.GetAxis("Mouse Y");
+    //    yaw += mouseSpeedH * Input.GetAxis("Mouse X");
+    //    pitch -= mouseSpeedV * Input.GetAxis("Mouse Y");
 
-        this.transform.eulerAngles = new Vector3(pitch, yaw, 0.0f);
-    }
+    //    this.transform.eulerAngles = new Vector3(pitch, yaw, 0.0f);
+    //}
 
     //public void Update()
     //{
