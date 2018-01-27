@@ -2,11 +2,14 @@
 
 public class GloveCalibration : MonoBehaviour
 {
-    [SerializeField] private VRfreeGlove m_vrFreeGlove = null;
+    private VRfreeGlove m_vrFreeGlove = null;
 
     // Use this for initialization
     private void Start()
     {
+        m_vrFreeGlove = FindObjectOfType<VRfreeGlove>();
+
+        Camera.main.clearFlags = CameraClearFlags.SolidColor;
         m_vrFreeGlove.showCalibrationPose();
     }
 
@@ -15,5 +18,9 @@ public class GloveCalibration : MonoBehaviour
     {
         m_vrFreeGlove.hideCalibrationPose();
         m_vrFreeGlove.calibrate();
+        Camera.main.clearFlags = CameraClearFlags.Skybox;
+
+        //Load the last scene
+        MyGameManager._instance.GetComponent<GloverSceneManager>().LoadLastScene();
     }
 }
