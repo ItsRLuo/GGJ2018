@@ -7,6 +7,7 @@ public class GloveCalibration : MonoBehaviour
     // Use this for initialization
     private void Start()
     {
+        Camera.main.clearFlags = CameraClearFlags.SolidColor;
         m_vrFreeGlove.showCalibrationPose();
     }
 
@@ -15,5 +16,9 @@ public class GloveCalibration : MonoBehaviour
     {
         m_vrFreeGlove.hideCalibrationPose();
         m_vrFreeGlove.calibrate();
+        Camera.main.clearFlags = CameraClearFlags.Skybox;
+
+        //Load the last scene
+        MyGameManager._instance.GetComponent<GloverSceneManager>().LoadLastScene();
     }
 }
