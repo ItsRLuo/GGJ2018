@@ -14,6 +14,8 @@ public class GloverSceneManager : MonoBehaviour
         if (!MyGameManager._instance.isCalibrated && currentScene != m_calibrationScene)
         {
             m_lastScene = currentScene;
+
+
             LoadScene(m_calibrationScene);
         }
     }
