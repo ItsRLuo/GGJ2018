@@ -1,7 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.EventSystems;
+using UnityEngine.SceneManagement;
 
 // Enums for easy-to-rename buttton names
 public enum ButtonControlNames
@@ -81,6 +81,10 @@ public class MyGameManager : MonoBehaviour
 		// TODO
 	}
 
+    public void LoadScene(string sceneName)
+    {
+        SceneManager.LoadScene(sceneName);
+    }
 
 }
 
