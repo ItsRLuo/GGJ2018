@@ -14,7 +14,7 @@ public class KeyboardGloveController : MonoBehaviour
     private Vector3 movement;
 
     public float playerSpeed = 1.0f;
-    public Transform originalPos;
+    public GameObject originalPos;
     public float speedBackToOriginalPos = 3.0f;
     public float timeBufferMoveToOriginalPos = 1.5f;
     private float timeBufferToOriginalCounter = 0;
@@ -62,15 +62,17 @@ public class KeyboardGloveController : MonoBehaviour
     void Start()
     {
         myVRGloveScript = this.GetComponent<VRfreeGlove>();
-        //// Use keyboard instead of VR glove
-        //if (MyGameManager._instance.isKeyboardControls && myVRGloveScript != null)
-        //{
-        //    myVRGloveScript.enabled = false;
-        //}
-        //else if (myVRGloveScript != null)
-        //{
-        //    myVRGloveScript.enabled = true;
-        //}
+        // Use keyboard instead of VR glove
+        if (MyGameManager._instance.isKeyboardControls && myVRGloveScript != null)
+        {
+            myVRGloveScript.enabled = false;
+            this.transform.parent = Camera.main.transform;
+            originalPos.transform.position = this.transform.position;
+        }
+        else if (myVRGloveScript != null)
+        {
+            myVRGloveScript.enabled = true;
+        }
 
         //// add fingers
         //thumbSegments = new List<FingerHelper>();
@@ -181,9 +183,9 @@ public class KeyboardGloveController : MonoBehaviour
             isPlayerMovementInactive = true;
             timeBufferToOriginalCounter += Time.deltaTime;
 
-            if (wasMiddleClicked || (this.transform.position != originalPos.position && timeBufferToOriginalCounter >= timeBufferMoveToOriginalPos))
+            if (wasMiddleClicked || (this.transform.position != originalPos.transform.position && timeBufferToOriginalCounter >= timeBufferMoveToOriginalPos))
             {
-                this.transform.position = Vector3.MoveTowards(transform.position, originalPos.position, speedBackToOriginalPos * Time.deltaTime);
+                this.transform.position = Vector3.MoveTowards(transform.position, originalPos.transform.position, speedBackToOriginalPos * Time.deltaTime);
             }
         }
         else
