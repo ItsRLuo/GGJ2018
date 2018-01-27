@@ -28,13 +28,17 @@ public struct HandData {
 
 public class VRfreeGlove : MonoBehaviour {
 
+    public static VRfreeGlove _instance;
+
     //access to the VRfree driver functions
     [DllImport("VRfree")] private static extern void vrfree_start();
     [DllImport("VRfree")] private static extern void vrfree_calibrate(bool leftHand, Vector3 direction);
     [DllImport("VRfree")] private static extern bool vrfree_getHandData(bool leftHand, Vector3 cameraPosition, Quaternion cameraRotation, byte[] result);
     [DllImport("VRfree")] private static extern byte vrfree_statusCode();
     [DllImport("VRfree")] private static extern void vrfree_release();
-    private void start() { vrfree_start(); }
+    private void start() {
+        vrfree_start();
+    }
     public void calibrate() { vrfree_calibrate(isLeftHand, lastCalibrationDirection); }
     private bool getHandData() {
         bool result = vrfree_getHandData(isLeftHand, cameraTransform.position, cameraTransform.rotation, handDataBuffer);
@@ -109,6 +113,11 @@ public class VRfreeGlove : MonoBehaviour {
         calibrationPosition = Vector3.zero;
     }
 
+    void Awake()
+    {
+        _instance = this;
+    }
+
     //start-up function
     void Start () {
         //start the VRfree library to indicate that this instance is interested in VRfree data
@@ -148,6 +157,7 @@ public class VRfreeGlove : MonoBehaviour {
 
     //update the output
     void Update () {
+        if (MyGameManager._instance.isKeyboardControls) { return; } // custom GGJ 2018 code
         //print a readable status in the editor
         byte code = statusCode();
         if ((code & NOT_CONNECTED) > 0) {

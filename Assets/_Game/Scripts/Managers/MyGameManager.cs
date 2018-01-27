@@ -22,7 +22,8 @@ public enum GameMode
 
 public class MyGameManager : MonoBehaviour
 {
-	#region variables
+    #region variables
+    public bool isKeyboardControls = false;
 	public static MyGameManager _instance;
 	public RuntimePlatform UserPlatform;
 

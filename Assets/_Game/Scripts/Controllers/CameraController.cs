@@ -4,77 +4,95 @@ using UnityEngine;
 
 public class CameraController : MonoBehaviour
 {
-	public static CameraController _instance;
+    public static CameraController _instance;
 
-	public Transform TargetObject;
-	public bool IsMovingToNewTarget = false;
-	public float DampTime = 0; // The smoothening factor
-	private float OriginalDampTime; // The smoothening factor
-	public float DampTimeOnNewTarget = 0.22f; // The smoothening factor
+    public Transform TargetObject;
+    public bool IsMovingToNewTarget = false;
+    public float DampTime = 0; // The smoothening factor
+    private float OriginalDampTime; // The smoothening factor
+    public float DampTimeOnNewTarget = 0.22f; // The smoothening factor
 
-	public Vector3 CameraDistance;
+    public Vector3 CameraDistance;
 
-	public float MovementOffset = 0.2f; // Offset of how close the camera must be before it is "close enough" to reduce the damp time
+    public float MovementOffset = 0.2f; // Offset of how close the camera must be before it is "close enough" to reduce the damp time
 
-	private Vector3 velocity = Vector3.zero;
-	private Camera myCamera;
+    private Vector3 velocity = Vector3.zero;
+    private Camera myCamera;
 
-	public float CameraHeightOffset = 0; // use negative numbers to zoom in and positive numbers to zoom out
-	public float CameraHeightOffsetOriginal = 0;
+    public float CameraHeightOffset = 0; // use negative numbers to zoom in and positive numbers to zoom out
+    public float CameraHeightOffsetOriginal = 0;
 
-
-	private void Awake()
-	{
-		_instance = this;
-
-		myCamera = gameObject.GetComponent<Camera>();
-		OriginalDampTime = DampTime;
-
-		Debug.Log(CameraDistance.x + "," + CameraDistance.y + "," + CameraDistance.z);
-		CameraDistance = myCamera.WorldToViewportPoint(TargetObject.position);
-	}
+    // follow mouse variables
+    public float mouseSpeedH = 2.0f;
+    public float mouseSpeedV = 2.0f;
+    private float yaw = 0.0f;
+    private float pitch = 0.0f;
 
 
-	private void Update()
-	{
-		if (TargetObject)
-		{
-			Vector3 delta = TargetObject.position - myCamera.ViewportToWorldPoint(new Vector3(0.5f, 0.5f, CameraDistance.z));
-			Vector3 destination = transform.position + delta + new Vector3(0, CameraHeightOffset, 0);
-			Vector3 distanceToNewObj = (transform.position - destination);
 
-			if (IsMovingToNewTarget)
-			{
-				if (
-					(distanceToNewObj.x > MovementOffset) || (distanceToNewObj.x < (MovementOffset * -1)) ||
-					(distanceToNewObj.y > MovementOffset) || (distanceToNewObj.y < (MovementOffset * -1)) ||
-					(distanceToNewObj.z > MovementOffset) || (distanceToNewObj.z < (MovementOffset * -1))
-					) //((transform.position - destination) != Vector3.zero)
-				{
-					// Slow down the move speed for the transition
-					DampTime = DampTimeOnNewTarget;
-				}
-				else
-				{
-					IsMovingToNewTarget = false;
-					Debug.Log("Camera is now pointing at new object");
-					DampTime = OriginalDampTime;
-				}
-			}
+    private void Awake()
+    {
+        _instance = this;
 
-			transform.position = Vector3.SmoothDamp(transform.position, destination, ref velocity, DampTime);
-		}
-	}
+        myCamera = gameObject.GetComponent<Camera>();
+        OriginalDampTime = DampTime;
 
-	//public void Update()
-	//{
-	//	transform.position = Vector3.Lerp(transform.position , TargetObject.transform.position + offset, Time.deltaTime *100);
-	//}
+        Debug.Log(CameraDistance.x + "," + CameraDistance.y + "," + CameraDistance.z);
+        CameraDistance = myCamera.WorldToViewportPoint(TargetObject.position);
+    }
 
 
-	#region Custom functions
+    private void Update()
+    {
+        if (TargetObject)
+        {
+            Vector3 delta = TargetObject.position - myCamera.ViewportToWorldPoint(new Vector3(0.5f, 0.5f, CameraDistance.z));
+            Vector3 destination = transform.position + delta + new Vector3(0, CameraHeightOffset, 0);
+            Vector3 distanceToNewObj = (transform.position - destination);
 
-	public void ChangeTarget(Transform newTarget, float heightOffset)
+            if (IsMovingToNewTarget)
+            {
+                if (
+                    (distanceToNewObj.x > MovementOffset) || (distanceToNewObj.x < (MovementOffset * -1)) ||
+                    (distanceToNewObj.y > MovementOffset) || (distanceToNewObj.y < (MovementOffset * -1)) ||
+                    (distanceToNewObj.z > MovementOffset) || (distanceToNewObj.z < (MovementOffset * -1))
+                    ) //((transform.position - destination) != Vector3.zero)
+                {
+                    // Slow down the move speed for the transition
+                    DampTime = DampTimeOnNewTarget;
+                }
+                else
+                {
+                    IsMovingToNewTarget = false;
+                    Debug.Log("Camera is now pointing at new object");
+                    DampTime = OriginalDampTime;
+                }
+            }
+
+            transform.position = Vector3.SmoothDamp(transform.position, destination, ref velocity, DampTime);
+        }
+
+        FollowMouseAngle();
+
+    }
+
+    public void FollowMouseAngle()
+    {
+        yaw += mouseSpeedH * Input.GetAxis("Mouse X");
+        pitch -= mouseSpeedV * Input.GetAxis("Mouse Y");
+
+        this.transform.eulerAngles = new Vector3(pitch, yaw, 0.0f);
+    }
+
+    //public void Update()
+    //{
+    //	transform.position = Vector3.Lerp(transform.position , TargetObject.transform.position + offset, Time.deltaTime *100);
+    //}
+
+
+        #region Custom functions
+
+    public void ChangeTarget(Transform newTarget, float heightOffset)
 	{
 		// Move the camera to to new playerobj
 		TargetObject = newTarget;
