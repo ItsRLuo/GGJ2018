@@ -16,7 +16,7 @@ public class SwitchController : MonoBehaviour {
 		
 	}
 
-	void OnTriggerExit(){
+	void OnTriggerEnter(){
 		Debug.Log (tag);
 		if (tag == "UpDownSwitch") {
 //			Quaternion target = Quaternion.Euler(0f, 0f, -30f);
