@@ -2,11 +2,13 @@
 
 public class GloveCalibration : MonoBehaviour
 {
-    [SerializeField] private VRfreeGlove m_vrFreeGlove = null;
+    private VRfreeGlove m_vrFreeGlove = null;
 
     // Use this for initialization
     private void Start()
     {
+        m_vrFreeGlove = FindObjectOfType<VRfreeGlove>();
+
         Camera.main.clearFlags = CameraClearFlags.SolidColor;
         m_vrFreeGlove.showCalibrationPose();
     }
