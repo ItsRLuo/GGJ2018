@@ -78,6 +78,8 @@ public class CameraController : MonoBehaviour
 
     public void FollowMouseAngle()
     {
+        if (!MyGameManager._instance.isKeyboardControls) { return; }
+
         yaw += mouseSpeedH * Input.GetAxis("Mouse X");
         pitch -= mouseSpeedV * Input.GetAxis("Mouse Y");
 
