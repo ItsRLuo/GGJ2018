@@ -421,6 +421,7 @@ GameObject:
   - component: {fileID: 4144230882829986}
   - component: {fileID: 95861931743854416}
   - component: {fileID: 114295191416686008}
+  - component: {fileID: 114731077770289772}
   m_Layer: 0
   m_Name: RightHandModel
   m_TagString: Untagged
@@ -756,7 +757,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1624098513037324}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 1.031, y: 0, z: 0}
+  m_LocalPosition: {x: 0.045814, y: 0.040086, z: -0.24057}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4655148200202180}
@@ -1497,6 +1498,41 @@ MonoBehaviour:
   little1Transform: {fileID: 4060485079055422}
   little2Transform: {fileID: 4231506933430374}
   little3Transform: {fileID: 4774007805287394}
+--- !u!114 &114731077770289772
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1624098513037324}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 26d653484d2123d4682f0d693aa12806, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  playerSpeed: 1
+  originalPos: {fileID: 0}
+  speedBackToOriginalPos: 3
+  timeBufferMoveToOriginalPos: 1.5
+  fingerRotateSpeed: 6
+  holdAngle: 60
+  thumbHoldAngle: 30
+  wristRotation: {fileID: 4433670737213398}
+  handRotation: {fileID: 4010202135947606}
+  thumb1Rotation: {fileID: 4490736364958274}
+  thumb2Rotation: {fileID: 4996733731166968}
+  thumb3Rotation: {fileID: 4039049490940854}
+  index1Rotation: {fileID: 4891581631702658}
+  index2Rotation: {fileID: 4759258587588238}
+  index3Rotation: {fileID: 4468153661690250}
+  middle1Rotation: {fileID: 4316555257726598}
+  middle2Rotation: {fileID: 4402681380468776}
+  middle3Rotation: {fileID: 4869697907206472}
+  ring1Rotation: {fileID: 4435909121529388}
+  ring2Rotation: {fileID: 4558716068220202}
+  ring3Rotation: {fileID: 4702228439632678}
+  little1Rotation: {fileID: 4907985132776896}
+  little2Rotation: {fileID: 4611888083495442}
+  little3Rotation: {fileID: 4437418481774454}
 --- !u!137 &137976897434292524
 SkinnedMeshRenderer:
   m_ObjectHideFlags: 1
