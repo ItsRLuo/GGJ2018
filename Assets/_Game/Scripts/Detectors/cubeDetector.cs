@@ -15,9 +15,17 @@ public class cubeDetector : MonoBehaviour {
 	}
 
 
-	void OnTriggerEnter(Collider other){
-		if (other.gameObject.CompareTag ("Holder")) {
-			light.GetComponent<Renderer> ().material.color = Color.green;
-		}
-	}
+	//void OnTriggerEnter(Collider other){
+	//	if (other.gameObject.CompareTag ("Holder")) {
+	//		light.GetComponent<Renderer> ().material.color = Color.green;
+	//	}
+ //   }
+
+    void OnCollisionEnter(Collision other)
+    {
+        if (other.gameObject.CompareTag("Holder"))
+        {
+            light.GetComponent<Renderer>().material.color = Color.green;
+        }
+    }
 }
