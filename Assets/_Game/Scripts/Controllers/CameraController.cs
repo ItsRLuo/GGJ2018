@@ -71,27 +71,21 @@ public class CameraController : MonoBehaviour
             transform.position = Vector3.SmoothDamp(transform.position, destination, ref velocity, DampTime);
         }
 
-        //FollowMouseAngle();
+        FollowMouseAngle();
 
     }
 
-    //public void FollowMouseAngle()
-    //{
-    //    if (!MyGameManager._instance.isKeyboardControls) { return; }
+    public void FollowMouseAngle()
+    {
+        if (!MyGameManager._instance.isKeyboardControls) { return; }
 
-    //    yaw += mouseSpeedH * Input.GetAxis("Mouse X");
-    //    pitch -= mouseSpeedV * Input.GetAxis("Mouse Y");
+        yaw += mouseSpeedH * Input.GetAxis("Mouse X");
+        pitch -= mouseSpeedV * Input.GetAxis("Mouse Y");
 
-    //    this.transform.eulerAngles = new Vector3(pitch, yaw, 0.0f);
-    //}
+        this.transform.eulerAngles = new Vector3(pitch, yaw, 0.0f);
+    }
 
-    //public void Update()
-    //{
-    //	transform.position = Vector3.Lerp(transform.position , TargetObject.transform.position + offset, Time.deltaTime *100);
-    //}
-
-
-        #region Custom functions
+    #region Custom functions
 
     public void ChangeTarget(Transform newTarget, float heightOffset)
 	{
