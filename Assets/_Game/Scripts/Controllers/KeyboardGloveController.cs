@@ -10,6 +10,8 @@ public class FingerHelper
 
 public class KeyboardGloveController : MonoBehaviour
 {
+    public static KeyboardGloveController _instance;
+
     private VRfreeGlove myVRGloveScript;
     private Vector3 movement;
 
@@ -38,7 +40,7 @@ public class KeyboardGloveController : MonoBehaviour
     private List<FingerHelper> ringFingerSegments;
     private List<FingerHelper> pinkyFingerSegments;
     private List<FingerHelper> thumbSegments;
-    public float holdAngle = 50f;
+    public float holdAngle = 60f;
     public float thumbHoldAngle = 30f;
 
     public Transform wristRotation;
@@ -58,6 +60,12 @@ public class KeyboardGloveController : MonoBehaviour
     public Transform little1Rotation;
     public Transform little2Rotation;
     public Transform little3Rotation;
+
+    void Awake()
+    {
+        _instance = this;
+    }
+
 
     void Start()
     {
