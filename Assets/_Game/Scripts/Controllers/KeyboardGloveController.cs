@@ -23,10 +23,9 @@ public class KeyboardGloveController : MonoBehaviour
     private bool isLeftClickDown = false;
     private bool isRightClickDown = false;
     private bool wasMiddleClicked = false;
+    private bool isMiddleMouseScroll = false;
 
     public float fingerRotateSpeed = 5.0f;
-    public float hold_angleYFingerMin = -25.0f;
-    public float letGo_angleYFingerMin = 70.0f;
 
     private KeyCode thumbFingerKey = KeyCode.Space;
     private KeyCode indexFingerKey = KeyCode.F;
@@ -38,9 +37,27 @@ public class KeyboardGloveController : MonoBehaviour
     private List<FingerHelper> middleFingerSegments;
     private List<FingerHelper> ringFingerSegments;
     private List<FingerHelper> pinkyFingerSegments;
-    public float holdAngle = 50f;
-    public float holdThumbAngle = 25f;
     private List<FingerHelper> thumbSegments;
+    public float holdAngle = 50f;
+    public float thumbHoldAngle = 30f;
+
+    public Transform wristRotation;
+    public Transform handRotation;
+    public Transform thumb1Rotation;
+    public Transform thumb2Rotation;
+    public Transform thumb3Rotation;
+    public Transform index1Rotation;
+    public Transform index2Rotation;
+    public Transform index3Rotation;
+    public Transform middle1Rotation;
+    public Transform middle2Rotation;
+    public Transform middle3Rotation;
+    public Transform ring1Rotation;
+    public Transform ring2Rotation;
+    public Transform ring3Rotation;
+    public Transform little1Rotation;
+    public Transform little2Rotation;
+    public Transform little3Rotation;
 
     void Start()
     {
@@ -55,31 +72,57 @@ public class KeyboardGloveController : MonoBehaviour
         //    myVRGloveScript.enabled = true;
         //}
 
-        // add fingers
-        thumbSegments = new List<FingerHelper>();
+        //// add fingers
+        //thumbSegments = new List<FingerHelper>();
+        ////thumbSegments.Add(new FingerHelper() { FingerTransform = VRfreeGlove._instance.thumb1Transform, OriginalRotation = VRfreeGlove._instance.thumb1Transform.localRotation });
+        //thumbSegments.Add(new FingerHelper() { FingerTransform = VRfreeGlove._instance.thumb2Transform, OriginalRotation = VRfreeGlove._instance.thumb2Transform.localRotation });
+        //thumbSegments.Add(new FingerHelper() { FingerTransform = VRfreeGlove._instance.thumb3Transform, OriginalRotation = VRfreeGlove._instance.thumb3Transform.localRotation });
+
+        //indexFingerSegments = new List<FingerHelper>();
+        //indexFingerSegments.Add(new FingerHelper() { FingerTransform = VRfreeGlove._instance.index1Transform, OriginalRotation = VRfreeGlove._instance.index1Transform.localRotation });
+        //indexFingerSegments.Add(new FingerHelper() { FingerTransform = VRfreeGlove._instance.index2Transform, OriginalRotation = VRfreeGlove._instance.index2Transform.localRotation });
+        //indexFingerSegments.Add(new FingerHelper() { FingerTransform = VRfreeGlove._instance.index3Transform, OriginalRotation = VRfreeGlove._instance.index3Transform.localRotation });
+
+        //middleFingerSegments = new List<FingerHelper>();
+        //middleFingerSegments.Add(new FingerHelper() { FingerTransform = VRfreeGlove._instance.middle1Transform, OriginalRotation = VRfreeGlove._instance.middle1Transform.localRotation });
+        //middleFingerSegments.Add(new FingerHelper() { FingerTransform = VRfreeGlove._instance.middle2Transform, OriginalRotation = VRfreeGlove._instance.middle2Transform.localRotation });
+        //middleFingerSegments.Add(new FingerHelper() { FingerTransform = VRfreeGlove._instance.middle3Transform, OriginalRotation = VRfreeGlove._instance.middle3Transform.localRotation });
+
+        //ringFingerSegments = new List<FingerHelper>();
+        //ringFingerSegments.Add(new FingerHelper() { FingerTransform = VRfreeGlove._instance.ring1Transform, OriginalRotation = VRfreeGlove._instance.ring1Transform.localRotation });
+        //ringFingerSegments.Add(new FingerHelper() { FingerTransform = VRfreeGlove._instance.ring2Transform, OriginalRotation = VRfreeGlove._instance.ring2Transform.localRotation });
+        //ringFingerSegments.Add(new FingerHelper() { FingerTransform = VRfreeGlove._instance.ring3Transform, OriginalRotation = VRfreeGlove._instance.ring3Transform.localRotation });
+
+        //pinkyFingerSegments = new List<FingerHelper>();
+        //pinkyFingerSegments.Add(new FingerHelper() { FingerTransform = VRfreeGlove._instance.little1Transform, OriginalRotation = VRfreeGlove._instance.little1Transform.localRotation });
+        //pinkyFingerSegments.Add(new FingerHelper() { FingerTransform = VRfreeGlove._instance.little2Transform, OriginalRotation = VRfreeGlove._instance.little2Transform.localRotation });
+        //pinkyFingerSegments.Add(new FingerHelper() { FingerTransform = VRfreeGlove._instance.little3Transform, OriginalRotation = VRfreeGlove._instance.little3Transform.localRotation });
+
         //thumbSegments.Add(new FingerHelper() { FingerTransform = VRfreeGlove._instance.thumb1Transform, OriginalRotation = VRfreeGlove._instance.thumb1Transform.localRotation });
-        thumbSegments.Add(new FingerHelper() { FingerTransform = VRfreeGlove._instance.thumb2Transform, OriginalRotation = VRfreeGlove._instance.thumb2Transform.localRotation });
-        thumbSegments.Add(new FingerHelper() { FingerTransform = VRfreeGlove._instance.thumb3Transform, OriginalRotation = VRfreeGlove._instance.thumb3Transform.localRotation });
+        thumbSegments = new List<FingerHelper>();
+        thumbSegments.Add(new FingerHelper() { FingerTransform = thumb1Rotation, OriginalRotation = thumb1Rotation.localRotation });
+        thumbSegments.Add(new FingerHelper() { FingerTransform = thumb2Rotation, OriginalRotation = thumb2Rotation.localRotation });
+        thumbSegments.Add(new FingerHelper() { FingerTransform = thumb3Rotation, OriginalRotation = thumb3Rotation.localRotation });
 
         indexFingerSegments = new List<FingerHelper>();
-        indexFingerSegments.Add(new FingerHelper() { FingerTransform = VRfreeGlove._instance.index1Transform, OriginalRotation = VRfreeGlove._instance.index1Transform.localRotation });
-        indexFingerSegments.Add(new FingerHelper() { FingerTransform = VRfreeGlove._instance.index2Transform, OriginalRotation = VRfreeGlove._instance.index2Transform.localRotation });
-        indexFingerSegments.Add(new FingerHelper() { FingerTransform = VRfreeGlove._instance.index3Transform, OriginalRotation = VRfreeGlove._instance.index3Transform.localRotation });
-        
+        indexFingerSegments.Add(new FingerHelper() { FingerTransform = index1Rotation, OriginalRotation = index1Rotation.localRotation });
+        indexFingerSegments.Add(new FingerHelper() { FingerTransform = index2Rotation, OriginalRotation = index2Rotation.localRotation });
+        indexFingerSegments.Add(new FingerHelper() { FingerTransform = index3Rotation, OriginalRotation = index3Rotation.localRotation });
+
         middleFingerSegments = new List<FingerHelper>();
-        middleFingerSegments.Add(new FingerHelper() { FingerTransform = VRfreeGlove._instance.middle1Transform, OriginalRotation = VRfreeGlove._instance.middle1Transform.localRotation });
-        middleFingerSegments.Add(new FingerHelper() { FingerTransform = VRfreeGlove._instance.middle2Transform, OriginalRotation = VRfreeGlove._instance.middle2Transform.localRotation });
-        middleFingerSegments.Add(new FingerHelper() { FingerTransform = VRfreeGlove._instance.middle3Transform, OriginalRotation = VRfreeGlove._instance.middle3Transform.localRotation });
+        middleFingerSegments.Add(new FingerHelper() { FingerTransform = middle1Rotation, OriginalRotation = middle1Rotation.localRotation });
+        middleFingerSegments.Add(new FingerHelper() { FingerTransform = middle2Rotation, OriginalRotation = middle2Rotation.localRotation });
+        middleFingerSegments.Add(new FingerHelper() { FingerTransform = middle3Rotation, OriginalRotation = middle3Rotation.localRotation });
 
         ringFingerSegments = new List<FingerHelper>();
-        ringFingerSegments.Add(new FingerHelper() { FingerTransform = VRfreeGlove._instance.ring1Transform, OriginalRotation = VRfreeGlove._instance.ring1Transform.localRotation });
-        ringFingerSegments.Add(new FingerHelper() { FingerTransform = VRfreeGlove._instance.ring2Transform, OriginalRotation = VRfreeGlove._instance.ring2Transform.localRotation });
-        ringFingerSegments.Add(new FingerHelper() { FingerTransform = VRfreeGlove._instance.ring3Transform, OriginalRotation = VRfreeGlove._instance.ring3Transform.localRotation });
+        ringFingerSegments.Add(new FingerHelper() { FingerTransform = ring1Rotation, OriginalRotation = ring1Rotation.localRotation });
+        ringFingerSegments.Add(new FingerHelper() { FingerTransform = ring2Rotation, OriginalRotation = ring2Rotation.localRotation });
+        ringFingerSegments.Add(new FingerHelper() { FingerTransform = ring3Rotation, OriginalRotation = ring3Rotation.localRotation });
 
         pinkyFingerSegments = new List<FingerHelper>();
-        pinkyFingerSegments.Add(new FingerHelper() { FingerTransform = VRfreeGlove._instance.little1Transform, OriginalRotation = VRfreeGlove._instance.little1Transform.localRotation });
-        pinkyFingerSegments.Add(new FingerHelper() { FingerTransform = VRfreeGlove._instance.little2Transform, OriginalRotation = VRfreeGlove._instance.little2Transform.localRotation });
-        pinkyFingerSegments.Add(new FingerHelper() { FingerTransform = VRfreeGlove._instance.little3Transform, OriginalRotation = VRfreeGlove._instance.little3Transform.localRotation });
+        pinkyFingerSegments.Add(new FingerHelper() { FingerTransform = little1Rotation, OriginalRotation = little1Rotation.localRotation });
+        pinkyFingerSegments.Add(new FingerHelper() { FingerTransform = little2Rotation, OriginalRotation = little2Rotation.localRotation });
+        pinkyFingerSegments.Add(new FingerHelper() { FingerTransform = little3Rotation, OriginalRotation = little3Rotation.localRotation });
     }
     
     void Update()
@@ -118,40 +161,22 @@ public class KeyboardGloveController : MonoBehaviour
             timeBufferToOriginalCounter = 0;
         }
 
-        // Scroll Wheel
-        if (this.transform.position.z >= originalPos.position.z)
-        {
-            this.transform.Translate(Vector3.forward * Input.GetAxis("Mouse ScrollWheel"));
-        }
-
+        //// Scroll Wheel
+        //if ((this.transform.position.z >= originalPos.position.z) && Input.GetAxis("Mouse ScrollWheel") != 0)
+        //{
+        //    isMiddleMouseScroll = true;
+        //    this.transform.Translate(Vector3.forward * Input.GetAxis("Mouse ScrollWheel"));
+        //}
 
         // Rotate fingers on key press
-        CheckFingerKeyDownAndRotate(indexFingerKey, indexFingerSegments);
-        CheckFingerKeyDownAndRotate(middleFingerKey, middleFingerSegments);
-        CheckFingerKeyDownAndRotate(ringFingerKey, ringFingerSegments);
-        CheckFingerKeyDownAndRotate(pinkyFingerKey, pinkyFingerSegments);
-
-        // Note that thumbs are different Quaterions
-        if (Input.GetKey(thumbFingerKey))
-        {
-            // rotate fingers
-            foreach (FingerHelper thumbSegment in thumbSegments)
-            {
-                Vector3 targetDir = new Vector3(thumbSegment.FingerTransform.position.x, thumbSegment.FingerTransform.position.y, holdThumbAngle);
-                Vector3 newDir = Vector3.RotateTowards(transform.localPosition, targetDir, fingerRotateSpeed * Time.deltaTime, 0.0F);
-
-                thumbSegment.FingerTransform.localRotation = Quaternion.LookRotation(newDir);
-            }
-        }
-        else
-        {
-            RotateFinger(thumbSegments, true);
-        }
-        
-
+        CheckFingerKeyDownAndRotate(indexFingerKey, indexFingerSegments, holdAngle);
+        CheckFingerKeyDownAndRotate(middleFingerKey, middleFingerSegments, holdAngle);
+        CheckFingerKeyDownAndRotate(ringFingerKey, ringFingerSegments, holdAngle);
+        CheckFingerKeyDownAndRotate(pinkyFingerKey, pinkyFingerSegments, holdAngle);
+        CheckFingerKeyDownAndRotate(thumbFingerKey, thumbSegments, thumbHoldAngle);
 
         // Move back to orignal position
-        if (!isRightClickDown && !isLeftClickDown)
+        if (!isRightClickDown && !isLeftClickDown && !isMiddleMouseScroll)
         {
             isPlayerMovementInactive = true;
             timeBufferToOriginalCounter += Time.deltaTime;
@@ -166,6 +191,7 @@ public class KeyboardGloveController : MonoBehaviour
             isPlayerMovementInactive = false;
             timeBufferToOriginalCounter = 0;
             wasMiddleClicked = false;
+            isMiddleMouseScroll = false;
         }
 
         // Move
@@ -173,27 +199,25 @@ public class KeyboardGloveController : MonoBehaviour
     }
 
 
-    private void CheckFingerKeyDownAndRotate(KeyCode fingerKey, List<FingerHelper> fingerSegments)
+    private void CheckFingerKeyDownAndRotate(KeyCode fingerKey, List<FingerHelper> fingerSegments, float myHoldAngle)
     {
         if (Input.GetKey(fingerKey))
         {
-            RotateFinger(fingerSegments, false);
+            RotateFinger(fingerSegments, false, myHoldAngle);
         }
         else
         {
-            RotateFinger(fingerSegments, true);
+            RotateFinger(fingerSegments, true, myHoldAngle);
         }
     }
 
-    private void RotateFinger(List<FingerHelper> myFingerSegments, bool toOriginalRotation)
+    private void RotateFinger(List<FingerHelper> myFingerSegments, bool toOriginalRotation, float myHoldAngle)
     {
         // rotate fingers
         foreach (FingerHelper fingerSegment in myFingerSegments)
         {
-            Quaternion targetRotation = Quaternion.Euler(0, (-1 * holdAngle), fingerSegment.FingerTransform.localRotation.z);
-            Vector3 targetDir = new Vector3(0f, (-1 * holdAngle), fingerSegment.FingerTransform.position.z);
-            Vector3 newDir = Vector3.RotateTowards(transform.localPosition, targetDir, fingerRotateSpeed * Time.deltaTime, 2.0F);
-
+            Quaternion targetRotation = Quaternion.Euler(0, 90, (myHoldAngle));
+            
             if (toOriginalRotation)
             {
                 targetRotation = fingerSegment.OriginalRotation;
@@ -216,9 +240,6 @@ public class KeyboardGloveController : MonoBehaviour
 
         // Move the player to it's current position plus the movement.
         this.transform.localPosition += (movement);
-
-        //Quaternion rotation = Quaternion.LookRotation(movement);
-        //Debug.Log(rotation.x + ", " + rotation.y + ", " + rotation.z);
     }
 
 
