@@ -37,6 +37,7 @@ public class MyGameManager : MonoBehaviour
     //Audio
     [SerializeField] private AudioSource m_audioSource;
     [SerializeField] private AudioClip m_gameOverSound;
+    [SerializeField] private AudioClip m_victorySound;
 
     //Fade to black
     [SerializeField] private GameObject m_blackoutSphere;
@@ -103,6 +104,12 @@ public class MyGameManager : MonoBehaviour
 		// TODO
 	}
 
+    private void Victory()
+    {
+        m_audioSource.clip = m_victorySound;
+        m_audioSource.Play();
+    }
+
     private void GameOver()
     {
         m_audioSource.clip = m_gameOverSound;
@@ -128,8 +135,6 @@ public class MyGameManager : MonoBehaviour
             //Set the alpha of the sphere
             sphereColor.a = newAlpha;
             sphereMaterial.color = sphereColor;
-
-
         }
     }
 
