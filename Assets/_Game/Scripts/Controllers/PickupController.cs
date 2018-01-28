@@ -4,8 +4,9 @@ using UnityEngine;
 
 public class PickupController : MonoBehaviour
 {
-    public bool isPickedUp = false;
-    public bool isPossiblePickup;
+    public bool isGrabbed = false;
+    public bool canPickedUp = true;
+    public bool isPossibleGrab;
     //public int originalLayerMask; // TODO
     
     void Start()
@@ -17,16 +18,16 @@ public class PickupController : MonoBehaviour
     {
     }
 
-    public void PickMeUp()
+    public virtual void PickMeUp()
     {
         // stop bad hand physics by setting the layer
-        isPickedUp = true;
+        isGrabbed = true;
         this.gameObject.layer = LayerMask.NameToLayer("ObjHandHold");
     }
-    public void DropMe()
+    public virtual void DropMe()
     {
         // stop bad hand physics by setting the layer
-        isPickedUp = false;
+        isGrabbed = false;
         this.gameObject.layer = LayerMask.NameToLayer("Default");
     }
 
@@ -35,7 +36,7 @@ public class PickupController : MonoBehaviour
         if (col.gameObject.layer == LayerMask.NameToLayer("Hand") && this.gameObject.layer != LayerMask.NameToLayer("ObjHandHold"))
         {
             // TODO: change color or give a nice looking outline shader here maybe?
-            isPossiblePickup = true;
+            isPossibleGrab = true;
         }
     }
 
