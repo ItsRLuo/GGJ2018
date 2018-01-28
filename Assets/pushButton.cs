@@ -10,7 +10,7 @@ public class pushButton : MonoBehaviour {
     }
 	// Update is called once per frame
 	void Update () {
-        if (this.gameObject.GetComponentInParent<pushControllers>().winningCon == "6")
+        if (this.gameObject.GetComponentInParent<pushControllers>().winningCon == "601234")
         {
             for (float count = 0; count < 100; count += 0.01f)
             {
