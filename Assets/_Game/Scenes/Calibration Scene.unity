@@ -359,15 +359,15 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 4135166440845806, guid: 248a53981c3c13746bd04244b26ac4e9, type: 2}
       propertyPath: m_LocalScale.x
-      value: 20
+      value: 15
       objectReference: {fileID: 0}
     - target: {fileID: 4135166440845806, guid: 248a53981c3c13746bd04244b26ac4e9, type: 2}
       propertyPath: m_LocalScale.y
-      value: 20
+      value: 15
       objectReference: {fileID: 0}
     - target: {fileID: 4135166440845806, guid: 248a53981c3c13746bd04244b26ac4e9, type: 2}
       propertyPath: m_LocalScale.z
-      value: 20
+      value: 15
       objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 54080235934129834, guid: 248a53981c3c13746bd04244b26ac4e9, type: 2}
