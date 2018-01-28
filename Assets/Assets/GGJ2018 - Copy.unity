@@ -551,8 +551,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 490d3680ab93959439fcc9fc3794590e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  isPickedUp: 0
-  isPossiblePickup: 0
+  isGrabbed: 0
+  canPickedUp: 1
+  isPossibleGrab: 0
 --- !u!54 &300264175
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -5195,17 +5196,6 @@ GameObject:
 GameObject:
   m_PrefabParentObject: {fileID: 100002, guid: 95f3d04f0794e6648b081162dd255e4d, type: 3}
   m_PrefabInternal: {fileID: 1374706094}
---- !u!114 &1374706102
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1374706095}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 17d0a58eee4dd49cdb80d30c612d7942, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!65 &1374706103
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -5245,6 +5235,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   smooth: 2
+  isTurnOn: 0
 --- !u!136 &1374706106
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -5270,6 +5261,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   smooth: 2
+  isTurnOn: 0
 --- !u!136 &1374706108
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -5295,6 +5287,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   smooth: 2
+  isTurnOn: 0
 --- !u!136 &1374706110
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -5320,6 +5313,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   smooth: 2
+  isTurnOn: 0
 --- !u!136 &1374706112
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -5345,6 +5339,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   smooth: 2
+  isTurnOn: 0
 --- !u!136 &1374706114
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -5370,6 +5365,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   smooth: 2
+  isTurnOn: 0
 --- !u!136 &1374706116
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -5736,7 +5732,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1620457166}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 5.57, y: 0, z: 0.351}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
