@@ -26,7 +26,7 @@ public class TreeRingController : MonoBehaviour {
 	void Update (){
 		if(isTurn){transform.Rotate (Vector3.up, Time.deltaTime * 50);}
 	}
-	void OnTriggerEnter(Collider other){
+    void OnTriggerEnter(Collider other){
 		if (other.gameObject.layer == 8) {
 			isTurn = true;
 		}

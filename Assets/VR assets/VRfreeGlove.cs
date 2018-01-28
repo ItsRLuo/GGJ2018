@@ -218,7 +218,7 @@ public class VRfreeGlove : MonoBehaviour {
             }
         }
         else {
-            if (wristTransform != null) { wristTransform.position = handData.wristPosition; wristTransform.rotation = handData.wristRotation; wristTransform.position += wristTransform.forward * 10.0f; }
+            if (wristTransform != null) { wristTransform.position = handData.wristPosition; wristTransform.rotation = handData.wristRotation; wristTransform.position += wristTransform.forward * 6.0f; }
             if (handTransform != null) { handTransform.rotation = handData.handRotation; }
             if (thumb1Transform != null) { thumb1Transform.rotation = handData.thumb1Rotation; }
             if (thumb2Transform != null) { thumb2Transform.rotation = handData.thumb2Rotation; }
