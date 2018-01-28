@@ -10,10 +10,10 @@ public class pushControllers : MonoBehaviour {
             if (child.name.Contains("Circle")){
                 child.gameObject.AddComponent<BoxCollider>();
                 var trigger = child.gameObject.GetComponent<BoxCollider>();
+                trigger.isTrigger = true;
                 child.gameObject.AddComponent<Rigidbody>();
                 var body = child.gameObject.GetComponent<Rigidbody>();
                 body.useGravity = false;
-                trigger.isTrigger = true;
                 child.gameObject.AddComponent<pushButton>();
             }
             
@@ -22,6 +22,10 @@ public class pushControllers : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-		
-	}
+        foreach (Transform child in transform)
+        {
+
+        }
+
+    }
 }
