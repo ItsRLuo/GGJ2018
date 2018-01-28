@@ -63,6 +63,14 @@ public class MyGameManager : MonoBehaviour
 		SetDefaultControllerValuesBasedOffOS(UserPlatform);
 	}
 
+    private void Start()
+    {
+        //Set sphere alpha to 0
+        Color blackoutSphereColor = m_blackoutSphere.GetComponent<Renderer>().material.color;
+        blackoutSphereColor.a = 0;
+        m_blackoutSphere.GetComponent<Renderer>().material.color = blackoutSphereColor;
+    }
+
     #region Controller and Keyboard Controls
 
     public void SetDefaultControllerValuesBasedOffOS(RuntimePlatform userOS)
@@ -104,7 +112,7 @@ public class MyGameManager : MonoBehaviour
         m_audioSource.clip = m_gameOverSound;
         m_audioSource.Play();
 
-        Destroy(Camera.main.gameObject);
+        FadeToBlack();
     }
 
     private void FadeToBlack()
