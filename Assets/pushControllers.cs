@@ -4,7 +4,8 @@ using UnityEngine;
 
 public class pushControllers : MonoBehaviour {
     // Use this for initialization
-	void Start () {
+    public string winningCon;
+    void Start () {
         foreach (Transform child in transform)
         {
             if (child.name.Contains("Circle")){
@@ -27,6 +28,8 @@ public class pushControllers : MonoBehaviour {
         {
             if (child.gameObject.activeSelf == false)
             {
+                Stack myStack = new Stack();
+
                 total += 1;
             }
             if (total >= 6)
@@ -34,6 +37,7 @@ public class pushControllers : MonoBehaviour {
                 foreach (Transform children in transform)
                 {
                     children.gameObject.SetActive(true);
+                    winningCon = "";
                 }
             }
         }
