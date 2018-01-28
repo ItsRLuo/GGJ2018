@@ -31,22 +31,17 @@ public class MyGameManager : MonoBehaviour
 	
 	public GameMode GameMode = GameMode.NormalPlay;
 
-    private bool m_isCalibrated = false;
-    #endregion
+    //Game time limit
+    [SerializeField] private int m_timeLimit;
 
-    #region properties
-    public bool isCalibrated
-    {
-        set
-        {
-            m_isCalibrated = true;
-        }
-        get
-        {
-            return m_isCalibrated;
-        }
-    }
-    #endregion  
+    //Audio
+    [SerializeField] private AudioSource m_audioSource;
+    [SerializeField] private AudioClip m_gameOverSound;
+
+    //Fade to black
+    [SerializeField] private GameObject m_blackoutSphere;
+    [SerializeField] private float m_fadeToBlackTime;
+    #endregion
 
     void Awake()
 	{
@@ -70,9 +65,17 @@ public class MyGameManager : MonoBehaviour
 		SetDefaultControllerValuesBasedOffOS(UserPlatform);
 	}
 
-	#region Controller and Keyboard Controls
-	
-	public void SetDefaultControllerValuesBasedOffOS(RuntimePlatform userOS)
+    private void FixedUpdate()
+    {
+        --m_timeLimit;
+
+        if (m_timeLimit <= 0)
+            GameOver();
+    }
+
+    #region Controller and Keyboard Controls
+
+    public void SetDefaultControllerValuesBasedOffOS(RuntimePlatform userOS)
 	{
 		if (userOS == RuntimePlatform.LinuxPlayer)
 		{
@@ -99,6 +102,36 @@ public class MyGameManager : MonoBehaviour
 	{
 		// TODO
 	}
+
+    private void GameOver()
+    {
+        m_audioSource.clip = m_gameOverSound;
+        m_audioSource.Play();
+    }
+
+    private void FadeToBlack()
+    {
+        StartCoroutine(FadeToBlackCoroutine());
+    }
+
+    private IEnumerator FadeToBlackCoroutine()
+    {
+        Material sphereMaterial = m_blackoutSphere.GetComponent<Renderer>().material;
+        while(sphereMaterial.color.a < 1.0f)
+        {
+            yield return new WaitForEndOfFrame();
+
+            Color sphereColor = sphereMaterial.color;
+            float currentAlpha = sphereColor.a;
+            float newAlpha = currentAlpha + (Time.deltaTime / m_fadeToBlackTime);
+
+            //Set the alpha of the sphere
+            sphereColor.a = newAlpha;
+            sphereMaterial.color = sphereColor;
+
+
+        }
+    }
 
 }
 
