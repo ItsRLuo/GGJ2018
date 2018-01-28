@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class GrabController : MonoBehaviour
 {
+    public static GrabController _instance;
+
     public bool isGrab = false;
     public bool isAnyMainFourFingersInHoldPosition;
     public Transform grabPosition;
@@ -17,26 +19,34 @@ public class GrabController : MonoBehaviour
     public bool isHoldingObj = false;
     public GameObject objToHold;
 
-    public float minFingerGrabRotation = 50f;
+    public float minFingerGrabRotation = 55f;
     public float maxFingerGrabRotation = 200f;
-    public float minThumbGrabRotation = 20f;
+    public float minThumbGrabRotation = 25f;
     public float maxThumbGrabRotation = 200f;
+
+    public bool canPlayerGrabBuffer = true;
+    public float timeUntilCanGrab = 0.5f;   // HACK: we need a buffer so we can call the object's Drop function
+    private float timeUntilCanGrabCounter = 0;
+
+    public VRfreeGlove myVRfreeGloveScript;
 
     // Use this for initialization
     void Start()
     {
-
+        _instance = this;
     }
 
     // Update is called once per frame
     void Update()
     {
-        // TODO: rotation of Z-finger-segments because the glove doesn't use the r-model rotations
-        isThumbInHoldPosition = IsFingerIsInHoldPosition(KeyboardGloveController._instance.thumb2Rotation, minThumbGrabRotation, maxThumbGrabRotation);
-        isIndexInHoldPosition = IsFingerIsInHoldPosition(KeyboardGloveController._instance.index2Rotation, minFingerGrabRotation, maxFingerGrabRotation);
-        isMiddleInHoldPosition = IsFingerIsInHoldPosition(KeyboardGloveController._instance.middle2Rotation, minFingerGrabRotation, maxFingerGrabRotation);
-        isRingInHoldPosition = IsFingerIsInHoldPosition(KeyboardGloveController._instance.ring2Rotation, minFingerGrabRotation, maxFingerGrabRotation);
-        isPinkyInHoldPosition = IsFingerIsInHoldPosition(KeyboardGloveController._instance.little2Rotation, minFingerGrabRotation, maxFingerGrabRotation);
+        // Check rotations of each finger depanding on which hardware we use (keyboard/controller vs VRfeeeGlove)
+        if (MyGameManager._instance.isKeyboardControls) {
+            CheckKeyboardGrab();
+        }
+        else
+        {
+            CheckVRfreeGloveGrab();
+        }
 
         // Check if any of the main four fingers (excludes thumb) is in holding position
         if (isIndexInHoldPosition || isMiddleInHoldPosition || isRingInHoldPosition || isPinkyInHoldPosition)
@@ -63,21 +73,86 @@ public class GrabController : MonoBehaviour
         {
             isHoldingObj = true;
 
+            Rigidbody objToHoldRb = objToHold.GetComponent<Rigidbody>();
+            PickupController objToHoldPickupCtrlr = objToHold.GetComponent<PickupController>();
+
             // Remove all force from objToHold else we'll have wonky physics
-            objToHold.GetComponent<Rigidbody>().velocity = Vector3.zero;
-            objToHold.GetComponent<Rigidbody>().angularVelocity = Vector3.zero;
+            objToHoldRb.velocity = Vector3.zero;
+            objToHoldRb.angularVelocity = Vector3.zero;
 
             objToHold.transform.position = grabPosition.position;
+
+            if (objToHoldPickupCtrlr != null)
+            {
+                objToHoldPickupCtrlr.PickMeUp();
+            }
         }
-        else
+        else if (objToHold != null)
         {
+            // Let go
             isHoldingObj = false;
+            canPlayerGrabBuffer = false;
+        }
+        else {
+            // Just not holding anything
+            isHoldingObj = false;
+        }
+
+
+        // Grab buffer counter (Basically the time between when a player lets go and the object is dropped)
+        if (!canPlayerGrabBuffer)
+        {
+            // Perform drop script for the obj
+            if (objToHold != null)
+            {
+                objToHold.gameObject.GetComponent<PickupController>().DropMe();
+                objToHold = null; // Done doing obj-drop specific script
+            }
+
+            // Do the counter 
+            timeUntilCanGrabCounter += Time.deltaTime;
+
+            if (timeUntilCanGrabCounter >= timeUntilCanGrab) // Time up, can grab now
+            {
+                canPlayerGrabBuffer = true; // important
+                timeUntilCanGrabCounter = 0;
+            }
         }
     }
 
-    private bool IsFingerIsInHoldPosition(Transform fingerTransform, float minAngle, float maxAngle)
+    private void CheckKeyboardGrab()
+    {
+        // for Keyboard grab we check the rotation of the R-model (joints)
+        isThumbInHoldPosition = IsFingerIsInHoldPositionZ(KeyboardGloveController._instance.thumb2Rotation, minThumbGrabRotation, maxThumbGrabRotation);
+        isIndexInHoldPosition = IsFingerIsInHoldPositionZ(KeyboardGloveController._instance.index2Rotation, minFingerGrabRotation, maxFingerGrabRotation);
+        isMiddleInHoldPosition = IsFingerIsInHoldPositionZ(KeyboardGloveController._instance.middle2Rotation, minFingerGrabRotation, maxFingerGrabRotation);
+        isRingInHoldPosition = IsFingerIsInHoldPositionZ(KeyboardGloveController._instance.ring2Rotation, minFingerGrabRotation, maxFingerGrabRotation);
+        isPinkyInHoldPosition = IsFingerIsInHoldPositionZ(KeyboardGloveController._instance.little2Rotation, minFingerGrabRotation, maxFingerGrabRotation);
+    }
+    private void CheckVRfreeGloveGrab()
+    {
+        // For VRfeeGloves we need to check the rotation of Z-finger-segments because the glove doesn't use the r-model (joint) rotations
+        isThumbInHoldPosition = IsFingerIsInHoldPositionX(myVRfreeGloveScript.thumb2Transform, minThumbGrabRotation, maxThumbGrabRotation);
+        isIndexInHoldPosition = IsFingerIsInHoldPositionZ(myVRfreeGloveScript.index2Transform, minFingerGrabRotation, maxFingerGrabRotation);
+        isMiddleInHoldPosition = IsFingerIsInHoldPositionZ(myVRfreeGloveScript.middle2Transform, minFingerGrabRotation, maxFingerGrabRotation);
+        isRingInHoldPosition = IsFingerIsInHoldPositionZ(myVRfreeGloveScript.ring2Transform, minFingerGrabRotation, maxFingerGrabRotation);
+        isPinkyInHoldPosition = IsFingerIsInHoldPositionZ(myVRfreeGloveScript.little2Transform, minFingerGrabRotation, maxFingerGrabRotation);
+    }
+
+    private bool IsFingerIsInHoldPositionZ(Transform fingerTransform, float minAngle, float maxAngle)
     {
         if (IsBetween(fingerTransform.localEulerAngles.z, minAngle, maxAngle))
+        {
+            return true;
+        }
+        else
+        {
+            return false;
+        }
+    }
+    private bool IsFingerIsInHoldPositionX(Transform fingerTransform, float minAngle, float maxAngle)
+    {
+        if (IsBetween(fingerTransform.localEulerAngles.x, minAngle, maxAngle))
         {
             return true;
         }
@@ -92,27 +167,15 @@ public class GrabController : MonoBehaviour
         return (value >= min && value <= max);
     }
 
+
     void OnTriggerEnter(Collider col)
     {
-        if (isHoldingObj) { return; }
-        Debug.Log("Trigger Enter");
+        if (isHoldingObj || !canPlayerGrabBuffer) { return; }
         objToHold = col.gameObject;
     }
     void OnTriggerStay(Collider col)
     {
-        if (isHoldingObj) { return; }
+        if (isHoldingObj || !canPlayerGrabBuffer) { return; }
         objToHold = col.gameObject;
     }
-    void OnTriggerExit(Collider col)
-    {
-        if (isHoldingObj) { return; }
-        Debug.Log("Trigger Exit");
-        if (col.gameObject == objToHold) {
-            objToHold = null;
-        }
-    }
-    //void OnCollsionEnter(Collision col)
-    //{
-    //    Debug.Log("Collison Enter");
-    //}
 }

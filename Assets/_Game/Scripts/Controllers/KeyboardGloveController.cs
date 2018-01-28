@@ -29,18 +29,19 @@ public class KeyboardGloveController : MonoBehaviour
 
     public float fingerRotateSpeed = 5.0f;
 
+    private KeyCode allFingersKey = KeyCode.T;
     private KeyCode thumbFingerKey = KeyCode.Space;
     private KeyCode indexFingerKey = KeyCode.F;
     private KeyCode middleFingerKey = KeyCode.D;
     private KeyCode ringFingerKey = KeyCode.S;
     private KeyCode pinkyFingerKey = KeyCode.A;
-
+    
     private List<FingerHelper> indexFingerSegments;
     private List<FingerHelper> middleFingerSegments;
     private List<FingerHelper> ringFingerSegments;
     private List<FingerHelper> pinkyFingerSegments;
     private List<FingerHelper> thumbSegments;
-    public float holdAngle = 60f;
+    public float holdAngle = 65f;
     public float thumbHoldAngle = 30f;
 
     public Transform wristRotation;
@@ -78,40 +79,12 @@ public class KeyboardGloveController : MonoBehaviour
         {
             myVRGloveScript.enabled = false;
             this.transform.parent = Camera.main.transform;
-            originalPos.transform.position = this.transform.position;
         }
         else if (myVRGloveScript != null)
         {
             myVRGloveScript.enabled = true;
         }
-
-        //// add fingers
-        //thumbSegments = new List<FingerHelper>();
-        ////thumbSegments.Add(new FingerHelper() { FingerTransform = VRfreeGlove._instance.thumb1Transform, OriginalRotation = VRfreeGlove._instance.thumb1Transform.localRotation });
-        //thumbSegments.Add(new FingerHelper() { FingerTransform = VRfreeGlove._instance.thumb2Transform, OriginalRotation = VRfreeGlove._instance.thumb2Transform.localRotation });
-        //thumbSegments.Add(new FingerHelper() { FingerTransform = VRfreeGlove._instance.thumb3Transform, OriginalRotation = VRfreeGlove._instance.thumb3Transform.localRotation });
-
-        //indexFingerSegments = new List<FingerHelper>();
-        //indexFingerSegments.Add(new FingerHelper() { FingerTransform = VRfreeGlove._instance.index1Transform, OriginalRotation = VRfreeGlove._instance.index1Transform.localRotation });
-        //indexFingerSegments.Add(new FingerHelper() { FingerTransform = VRfreeGlove._instance.index2Transform, OriginalRotation = VRfreeGlove._instance.index2Transform.localRotation });
-        //indexFingerSegments.Add(new FingerHelper() { FingerTransform = VRfreeGlove._instance.index3Transform, OriginalRotation = VRfreeGlove._instance.index3Transform.localRotation });
-
-        //middleFingerSegments = new List<FingerHelper>();
-        //middleFingerSegments.Add(new FingerHelper() { FingerTransform = VRfreeGlove._instance.middle1Transform, OriginalRotation = VRfreeGlove._instance.middle1Transform.localRotation });
-        //middleFingerSegments.Add(new FingerHelper() { FingerTransform = VRfreeGlove._instance.middle2Transform, OriginalRotation = VRfreeGlove._instance.middle2Transform.localRotation });
-        //middleFingerSegments.Add(new FingerHelper() { FingerTransform = VRfreeGlove._instance.middle3Transform, OriginalRotation = VRfreeGlove._instance.middle3Transform.localRotation });
-
-        //ringFingerSegments = new List<FingerHelper>();
-        //ringFingerSegments.Add(new FingerHelper() { FingerTransform = VRfreeGlove._instance.ring1Transform, OriginalRotation = VRfreeGlove._instance.ring1Transform.localRotation });
-        //ringFingerSegments.Add(new FingerHelper() { FingerTransform = VRfreeGlove._instance.ring2Transform, OriginalRotation = VRfreeGlove._instance.ring2Transform.localRotation });
-        //ringFingerSegments.Add(new FingerHelper() { FingerTransform = VRfreeGlove._instance.ring3Transform, OriginalRotation = VRfreeGlove._instance.ring3Transform.localRotation });
-
-        //pinkyFingerSegments = new List<FingerHelper>();
-        //pinkyFingerSegments.Add(new FingerHelper() { FingerTransform = VRfreeGlove._instance.little1Transform, OriginalRotation = VRfreeGlove._instance.little1Transform.localRotation });
-        //pinkyFingerSegments.Add(new FingerHelper() { FingerTransform = VRfreeGlove._instance.little2Transform, OriginalRotation = VRfreeGlove._instance.little2Transform.localRotation });
-        //pinkyFingerSegments.Add(new FingerHelper() { FingerTransform = VRfreeGlove._instance.little3Transform, OriginalRotation = VRfreeGlove._instance.little3Transform.localRotation });
-
-        //thumbSegments.Add(new FingerHelper() { FingerTransform = VRfreeGlove._instance.thumb1Transform, OriginalRotation = VRfreeGlove._instance.thumb1Transform.localRotation });
+        
         thumbSegments = new List<FingerHelper>();
         thumbSegments.Add(new FingerHelper() { FingerTransform = thumb1Rotation, OriginalRotation = thumb1Rotation.localRotation });
         thumbSegments.Add(new FingerHelper() { FingerTransform = thumb2Rotation, OriginalRotation = thumb2Rotation.localRotation });
@@ -136,6 +109,7 @@ public class KeyboardGloveController : MonoBehaviour
         pinkyFingerSegments.Add(new FingerHelper() { FingerTransform = little1Rotation, OriginalRotation = little1Rotation.localRotation });
         pinkyFingerSegments.Add(new FingerHelper() { FingerTransform = little2Rotation, OriginalRotation = little2Rotation.localRotation });
         pinkyFingerSegments.Add(new FingerHelper() { FingerTransform = little3Rotation, OriginalRotation = little3Rotation.localRotation });
+        
     }
     
     void Update()
@@ -187,7 +161,7 @@ public class KeyboardGloveController : MonoBehaviour
         CheckFingerKeyDownAndRotate(ringFingerKey, ringFingerSegments, holdAngle);
         CheckFingerKeyDownAndRotate(pinkyFingerKey, pinkyFingerSegments, holdAngle);
         CheckFingerKeyDownAndRotate(thumbFingerKey, thumbSegments, thumbHoldAngle);
-
+        
         // Move back to orignal position
         if (!isRightClickDown && !isLeftClickDown && !isMiddleMouseScroll)
         {
@@ -214,7 +188,7 @@ public class KeyboardGloveController : MonoBehaviour
 
     private void CheckFingerKeyDownAndRotate(KeyCode fingerKey, List<FingerHelper> fingerSegments, float myHoldAngle)
     {
-        if (Input.GetKey(fingerKey))
+        if (Input.GetKey(fingerKey) || Input.GetKey(allFingersKey))
         {
             RotateFinger(fingerSegments, false, myHoldAngle);
         }
