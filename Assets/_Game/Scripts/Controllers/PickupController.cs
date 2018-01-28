@@ -4,33 +4,39 @@ using UnityEngine;
 
 public class PickupController : MonoBehaviour
 {
-    public int originalLayerMask;
-    public LayerMask holdLayer;
-
-    // Use this for initialization
+    public bool isPickedUp = false;
+    public bool isPossiblePickup;
+    //public int originalLayerMask; // TODO
+    
     void Start()
     {
-        originalLayerMask = this.gameObject.layer;
+        //originalLayerMask = this.gameObject.layer; // TODO
     }
-
-    // Update is called once per frame
+    
     void Update()
     {
-        // stop bad hand physics by setting the layer
-        this.gameObject.layer = GetLayerIntFromMask(holdLayer);
-        Debug.Log(GetLayerIntFromMask(holdLayer));
-
     }
 
-    private int GetLayerIntFromMask(LayerMask myLayer)
+    public void PickMeUp()
     {
-        int layerNumber = 0;
-        int layer = myLayer.value;
-        while (layer > 0)
-        {
-            layer = layer >> 1;
-            layerNumber++;
-        }
-        return layerNumber;
+        // stop bad hand physics by setting the layer
+        isPickedUp = true;
+        this.gameObject.layer = LayerMask.NameToLayer("ObjHandHold");
     }
+    public void DropMe()
+    {
+        // stop bad hand physics by setting the layer
+        isPickedUp = false;
+        this.gameObject.layer = LayerMask.NameToLayer("Default");
+    }
+
+    void OnTriggerEnter(Collider col)
+    {
+        if (col.gameObject.layer == LayerMask.NameToLayer("Hand") && this.gameObject.layer != LayerMask.NameToLayer("ObjHandHold"))
+        {
+            // TODO: change color or give a nice looking outline shader here maybe?
+            isPossiblePickup = true;
+        }
+    }
+
 }

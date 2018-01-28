@@ -349,25 +349,15 @@ Prefab:
       propertyPath: myVRfreeGloveScript
       value: 
       objectReference: {fileID: 1853275056}
-    - target: {fileID: 114052660506554862, guid: 53de7732638f6cf43b7928e1d1c14176,
+    - target: {fileID: 114731077770289772, guid: 53de7732638f6cf43b7928e1d1c14176,
         type: 2}
-      propertyPath: minFingerGrabRotation
-      value: 55
-      objectReference: {fileID: 0}
-    - target: {fileID: 114052660506554862, guid: 53de7732638f6cf43b7928e1d1c14176,
-        type: 2}
-      propertyPath: minThumbGrabRotation
-      value: 25
+      propertyPath: holdAngle
+      value: 65
       objectReference: {fileID: 0}
     - target: {fileID: 114052660506554862, guid: 53de7732638f6cf43b7928e1d1c14176,
         type: 2}
       propertyPath: maxFingerGrabRotation
       value: 200
-      objectReference: {fileID: 0}
-    - target: {fileID: 114731077770289772, guid: 53de7732638f6cf43b7928e1d1c14176,
-        type: 2}
-      propertyPath: holdAngle
-      value: 65
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 53de7732638f6cf43b7928e1d1c14176, type: 2}
@@ -742,7 +732,7 @@ Rigidbody:
   m_Mass: 0.5
   m_Drag: 0
   m_AngularDrag: 0.05
-  m_UseGravity: 0
+  m_UseGravity: 1
   m_IsKinematic: 0
   m_Interpolate: 0
   m_Constraints: 10
@@ -758,10 +748,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 490d3680ab93959439fcc9fc3794590e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  originalLayerMask: 0
-  holdLayer:
-    serializedVersion: 2
-    m_Bits: 512
+  isPickedUp: 0
+  isPossiblePickup: 0
 --- !u!1 &1484586993
 GameObject:
   m_ObjectHideFlags: 0
