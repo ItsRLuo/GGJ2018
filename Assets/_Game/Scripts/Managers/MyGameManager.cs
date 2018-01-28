@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 // Enums for easy-to-rename buttton names
 public enum ButtonControlNames
@@ -39,6 +40,8 @@ public class MyGameManager : MonoBehaviour
     //Fade to black
     [SerializeField] private GameObject m_blackoutSphere;
     [SerializeField] private float m_fadeToBlackTime;
+
+    [SerializeField] private GameObject m_player;
     #endregion
 
     void Awake()
@@ -69,6 +72,8 @@ public class MyGameManager : MonoBehaviour
         Color blackoutSphereColor = m_blackoutSphere.GetComponent<Renderer>().material.color;
         blackoutSphereColor.a = 0;
         m_blackoutSphere.GetComponent<Renderer>().material.color = blackoutSphereColor;
+
+        SceneManager.sceneLoaded += OnSceneLoaded;
     }
 
     #region Controller and Keyboard Controls
@@ -135,6 +140,15 @@ public class MyGameManager : MonoBehaviour
             sphereColor.a = newAlpha;
             sphereMaterial.color = sphereColor;
         }
+    }
+
+    private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
+    {
+        //Find target player location
+        GameObject targetTransform = GameObject.Find("TargetPlayerTransform");
+
+        m_player.transform.position = targetTransform.transform.position;
+        m_player.transform.rotation = targetTransform.transform.rotation;
     }
 
 }
