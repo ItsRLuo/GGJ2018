@@ -17,7 +17,7 @@ public class pushButton : MonoBehaviour {
         if (this.locked == false)
         {
             this.gameObject.transform.position = new Vector3(this.gameObject.transform.position.x, this.gameObject.transform.position.y, this.gameObject.transform.position.z - 1f);
-            this.locked = true;
+           
         }
     }
 }

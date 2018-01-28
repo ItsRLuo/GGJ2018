@@ -24,7 +24,7 @@ public class pushControllers : MonoBehaviour {
 	void Update () {
         foreach (Transform child in transform)
         {
-
+            //if child.gameObject.
         }
 
     }

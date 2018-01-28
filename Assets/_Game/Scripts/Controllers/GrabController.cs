@@ -29,6 +29,7 @@ public class GrabController : MonoBehaviour
     private float timeUntilCanGrabCounter = 0;
 
     public VRfreeGlove myVRfreeGloveScript;
+    public GameObject objToFollow;
 
     // Use this for initialization
     void Start()
@@ -46,6 +47,7 @@ public class GrabController : MonoBehaviour
         else
         {
             CheckVRfreeGloveGrab();
+            this.transform.position = objToFollow.transform.position;
         }
 
         // Check if any of the main four fingers (excludes thumb) is in holding position
