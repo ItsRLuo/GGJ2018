@@ -10,7 +10,7 @@ public class TreeRingController : MonoBehaviour {
 //	public GameObject innerCir_3;
 //	public GameObject innerCir_4;
 
-	private bool isTurn = false;
+	public bool isTurn = false;
 
 	// Use this for initialization
 	void Start () {
