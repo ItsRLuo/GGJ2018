@@ -3,12 +3,10 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class pushButton : MonoBehaviour {
-    bool locked;
+    bool locked = false;
     // Use this for initialization
     void Start () {
-          this.locked = false;
-    }
-	
+     }
 	// Update is called once per frame
 	void Update () {
 	}
@@ -16,8 +14,13 @@ public class pushButton : MonoBehaviour {
     {
         if (this.locked == false)
         {
-            this.gameObject.transform.position = new Vector3(this.gameObject.transform.position.x, this.gameObject.transform.position.y, this.gameObject.transform.position.z - 1f);
-           
+            this.gameObject.SetActive(false);
+            this.locked = true;
         }
+    }
+
+    void OnTriggerExit(Collider other)
+    {
+        this.locked = false;
     }
 }
