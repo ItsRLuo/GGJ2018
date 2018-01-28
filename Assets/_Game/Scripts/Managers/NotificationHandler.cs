@@ -26,6 +26,8 @@ public class NotificationHandler : MonoBehaviour {
             s_instance = this;
         else
             Destroy(gameObject);
+
+        gameObject.SetActive(false);
     }
 
     private void OnDestroy()

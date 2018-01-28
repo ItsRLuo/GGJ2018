@@ -133,9 +133,9 @@ public class VRfreeGlove : MonoBehaviour {
             lastCalibrationRotation = Quaternion.AngleAxis(Mathf.Acos(Vector3.Dot(Vector3.forward, lastCalibrationDirection))*Mathf.Rad2Deg, Vector3.Cross(Vector3.forward, lastCalibrationDirection));
 
             //compute a position for the calibration pose somewhere in front of the head
-            calibrationPosition.x = isLeftHand ? -0.3f : 0.3f;
-            calibrationPosition.y = -0.4f;
-            calibrationPosition.z = 0.4f;
+            calibrationPosition.x = isLeftHand ? -4.5f : 4.5f;
+            calibrationPosition.y = -6.0f;
+            calibrationPosition.z = 6.0f;
             calibrationPosition = cameraTransform.position + lastCalibrationRotation * calibrationPosition;
 
             calibrationPoseShown = true;
@@ -152,12 +152,16 @@ public class VRfreeGlove : MonoBehaviour {
         byte code = statusCode();
         if ((code & NOT_CONNECTED) > 0) {
             deviceStatus = "Please plug-in the VRfree device";
+            NotificationHandler.instance.Notify(deviceStatus);
         } else if ((code & CONNECTING) > 0) {
             deviceStatus = "Connecting to VRfree device...";
+            NotificationHandler.instance.Notify(deviceStatus);
         } else if ((code & START_STREAMING) > 0) {
             deviceStatus = "Starting VRfree data stream...";
+            NotificationHandler.instance.Notify(deviceStatus);
         } else if ((code & STREAMING) > 0) {
             deviceStatus = "Streaming VRfree data...";
+            NotificationHandler.instance.CloseNotification();
         } else {
             deviceStatus = "unknown";
         }
