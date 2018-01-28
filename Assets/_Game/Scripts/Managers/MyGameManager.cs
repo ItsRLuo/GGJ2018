@@ -1,7 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.EventSystems;
 
 // Enums for easy-to-rename buttton names
 public enum ButtonControlNames
@@ -31,12 +30,32 @@ public class MyGameManager : MonoBehaviour
 	public Dictionary<ButtonControlNames, KeyCode> ButtonControls_Keyboard;
 	
 	public GameMode GameMode = GameMode.NormalPlay;
-	#endregion
 
+    private bool m_isCalibrated = false;
+    #endregion
 
-	void Awake()
+    #region properties
+    public bool isCalibrated
+    {
+        set
+        {
+            m_isCalibrated = true;
+        }
+        get
+        {
+            return m_isCalibrated;
+        }
+    }
+    #endregion  
+
+    void Awake()
 	{
-		_instance = this;
+        //Singleton
+        if (_instance == null)
+            _instance = this;
+        else
+            Destroy(gameObject);
+
 		UserPlatform = Application.platform;
 
 		ButtonControls_Keyboard = new Dictionary<ButtonControlNames, KeyCode>();
@@ -80,7 +99,6 @@ public class MyGameManager : MonoBehaviour
 	{
 		// TODO
 	}
-
 
 }
 
