@@ -11,6 +11,8 @@ public class pushControllers : MonoBehaviour {
                 child.gameObject.AddComponent<BoxCollider>();
                 var trigger = child.gameObject.GetComponent<BoxCollider>();
                 child.gameObject.AddComponent<Rigidbody>();
+                var body = child.gameObject.GetComponent<Rigidbody>();
+                body.useGravity = false;
                 trigger.isTrigger = true;
                 child.gameObject.AddComponent<pushButton>();
             }
