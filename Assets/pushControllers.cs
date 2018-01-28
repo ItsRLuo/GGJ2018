@@ -22,9 +22,20 @@ public class pushControllers : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
+        var total = 0;
         foreach (Transform child in transform)
         {
-            //if child.gameObject.
+            if (child.gameObject.activeSelf == false)
+            {
+                total += 1;
+            }
+            if (total >= 6)
+            {
+                foreach (Transform children in transform)
+                {
+                    children.gameObject.SetActive(true);
+                }
+            }
         }
 
     }
