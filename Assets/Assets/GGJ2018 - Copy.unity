@@ -565,8 +565,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   isTurn: 0
---- !u!135 &270507883
-SphereCollider:
+--- !u!136 &270507883
+CapsuleCollider:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
@@ -574,9 +574,10 @@ SphereCollider:
   m_Material: {fileID: 0}
   m_IsTrigger: 1
   m_Enabled: 1
-  serializedVersion: 2
-  m_Radius: 0.011
-  m_Center: {x: -0.0000000018626451, y: 0.0000000025611373, z: -4.0325055e-24}
+  m_Radius: 0.011500083
+  m_Height: 0.05
+  m_Direction: 1
+  m_Center: {x: -4.6566156e-10, y: -0.000000001047737, z: 1.8487487e-22}
 --- !u!114 &270507884
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -589,8 +590,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   isTurn: 0
---- !u!135 &270507885
-SphereCollider:
+--- !u!136 &270507885
+CapsuleCollider:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
@@ -598,9 +599,10 @@ SphereCollider:
   m_Material: {fileID: 0}
   m_IsTrigger: 1
   m_Enabled: 1
-  serializedVersion: 2
-  m_Radius: 0.007
-  m_Center: {x: -0.0000000041909516, y: 0.0000000025611373, z: 2.4815418e-23}
+  m_Radius: 0.011500083
+  m_Height: 0.05
+  m_Direction: 1
+  m_Center: {x: -4.6566156e-10, y: -0.000000001047737, z: 1.8487487e-22}
 --- !u!114 &270507886
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -613,8 +615,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   isTurn: 0
---- !u!135 &270507887
-SphereCollider:
+--- !u!136 &270507887
+CapsuleCollider:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
@@ -622,9 +624,10 @@ SphereCollider:
   m_Material: {fileID: 0}
   m_IsTrigger: 1
   m_Enabled: 1
-  serializedVersion: 2
-  m_Radius: 0.011500082
-  m_Center: {x: -0.000000003259629, y: 0.0000000025611373, z: -9.313226e-10}
+  m_Radius: 0.011500083
+  m_Height: 0.05
+  m_Direction: 1
+  m_Center: {x: -4.6566156e-10, y: -0.000000001047737, z: 1.8487487e-22}
 --- !u!114 &270507888
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -637,8 +640,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   isTurn: 0
---- !u!135 &270507889
-SphereCollider:
+--- !u!136 &270507889
+CapsuleCollider:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
@@ -646,8 +649,9 @@ SphereCollider:
   m_Material: {fileID: 0}
   m_IsTrigger: 1
   m_Enabled: 1
-  serializedVersion: 2
-  m_Radius: 0.005
+  m_Radius: 0.011500083
+  m_Height: 0.04
+  m_Direction: 1
   m_Center: {x: -4.6566156e-10, y: -0.000000001047737, z: 1.8487487e-22}
 --- !u!1 &300264170 stripped
 GameObject:
@@ -788,6 +792,22 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 20
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &381591720 stripped
+GameObject:
+  m_PrefabParentObject: {fileID: 100010, guid: 1fe761c73adce1041a501da5d74a0cf9, type: 3}
+  m_PrefabInternal: {fileID: 270507877}
+--- !u!114 &381591721
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 381591720}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 115db78633aa84f8b9f11d30086e8c1a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  isMatch: 0
 --- !u!1 &417978189 stripped
 GameObject:
   m_PrefabParentObject: {fileID: 100000, guid: 6dba0cf98d95c1c4f9ef2b4d684065f1, type: 3}
