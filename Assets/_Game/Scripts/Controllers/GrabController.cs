@@ -81,14 +81,11 @@ public class GrabController : MonoBehaviour
             // Remove all force from objToHold else we'll have wonky physics
             objToHoldRb.velocity = Vector3.zero;
             objToHoldRb.angularVelocity = Vector3.zero;
-            
+
+            objToHold.transform.position = grabPosition.position;
+
             if (objToHoldPickupCtrlr != null)
             {
-                if (objToHoldPickupCtrlr.canPickedUp)
-                {
-                    objToHold.transform.position = grabPosition.position;
-                }
-
                 objToHoldPickupCtrlr.PickMeUp();
             }
         }
