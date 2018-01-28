@@ -1,11 +1,5 @@
 fileFormatVersion: 2
-<<<<<<< HEAD
 guid: b3cf55bd9e160ce4e90bff85bee8392f
-=======
-guid: e7d2eb235888de048bce449b64252cc6
->>>>>>> a6a88012850021bb7e2f0745919b258a345d1f5f
-timeCreated: 1517087505
-licenseType: Free
 ModelImporter:
   serializedVersion: 22
   fileIDToRecycleName:
@@ -59,6 +53,7 @@ ModelImporter:
     4300010: Circle.002
     4300012: Sphere
     4300014: Cube
+    9500000: //RootNode
   externalObjects: {}
   materials:
     importMaterials: 1
@@ -133,7 +128,7 @@ ModelImporter:
     hasExtraRoot: 0
     skeletonHasParents: 1
   lastHumanDescriptionAvatarSource: {instanceID: 0}
-  animationType: 0
+  animationType: 2
   humanoidOversampling: 1
   additionalBone: 0
   userData: 
