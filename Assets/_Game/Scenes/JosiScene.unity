@@ -225,7 +225,7 @@ Prefab:
     - target: {fileID: 114663424590031700, guid: 248a53981c3c13746bd04244b26ac4e9,
         type: 2}
       propertyPath: isKeyboardControls
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 248a53981c3c13746bd04244b26ac4e9, type: 2}
