@@ -19,8 +19,5 @@ public class GloveCalibration : MonoBehaviour
         m_vrFreeGlove.hideCalibrationPose();
         m_vrFreeGlove.calibrate();
         Camera.main.clearFlags = CameraClearFlags.Skybox;
-
-        //Load the last scene
-        MyGameManager._instance.GetComponent<GloverSceneManager>().LoadLastScene();
     }
 }

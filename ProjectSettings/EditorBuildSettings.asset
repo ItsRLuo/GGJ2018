@@ -9,5 +9,5 @@ EditorBuildSettings:
     path: Assets/_Game/Scenes/Calibration Scene.unity
     guid: 222a630e93314294f86fda2ca3df34f1
   - enabled: 1
-    path: Assets/_Game/Scenes/Level01.unity
-    guid: 00077f5badf19494189e5f649bee6258
+    path: Assets/Assets/GGJ2018 - Copy.unity
+    guid: 486bb059ef3fa0348a1a3c8aff5ad0be

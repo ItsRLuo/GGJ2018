@@ -900,6 +900,10 @@ MonoBehaviour:
   maxFingerGrabRotation: 180
   minThumbGrabRotation: 20
   maxThumbGrabRotation: 200
+  canPlayerGrabBuffer: 1
+  timeUntilCanGrab: 0.5
+  myVRfreeGloveScript: {fileID: 0}
+  objToFollow: {fileID: 0}
 --- !u!1 &772194839
 GameObject:
   m_ObjectHideFlags: 0
@@ -1189,7 +1193,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ba16363ba7b973e4caea3d8f7aa91d94, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_vrFreeGlove: {fileID: 467743849}
 --- !u!4 &1077956298
 Transform:
   m_ObjectHideFlags: 0
@@ -1731,6 +1734,47 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 0.3, y: 0.2, z: 0.2}
   m_Center: {x: -0.1, y: 0, z: 0}
+--- !u!1 &1448805244
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 5
+  m_Component:
+  - component: {fileID: 1448805246}
+  - component: {fileID: 1448805245}
+  m_Layer: 0
+  m_Name: SceneManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1448805245
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1448805244}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8f7258a1aabd53c4792eee10981f6652, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_nextScene: GGJ2018 - Copy
+--- !u!4 &1448805246
+Transform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1448805244}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 1.4878243, y: 6.5838065, z: -7.985606}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 4
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1502222163
 GameObject:
   m_ObjectHideFlags: 0
@@ -2141,7 +2185,6 @@ GameObject:
   m_Component:
   - component: {fileID: 1742114626}
   - component: {fileID: 1742114628}
-  - component: {fileID: 1742114627}
   m_Layer: 0
   m_Name: GameManager
   m_TagString: Untagged
@@ -2179,18 +2222,6 @@ Transform:
   m_Father: {fileID: 1742114622}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1742114627
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1742114624}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8f7258a1aabd53c4792eee10981f6652, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_calibrationScene: Calibration Scene
 --- !u!114 &1742114628
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2206,6 +2237,11 @@ MonoBehaviour:
   isKeyboardControls: 0
   UserPlatform: 0
   GameMode: 0
+  m_audioSource: {fileID: 0}
+  m_gameOverSound: {fileID: 0}
+  m_victorySound: {fileID: 0}
+  m_blackoutSphere: {fileID: 0}
+  m_fadeToBlackTime: 0
 --- !u!1 &1762785134
 GameObject:
   m_ObjectHideFlags: 0
@@ -2395,12 +2431,23 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_textString: 'The game will start in '
-  m_duration: 5
+  m_duration: 15
   m_onCountdownFinished:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 1077956297}
         m_MethodName: CompleteCalibrationStep
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 1448805245}
+        m_MethodName: LoadNextScene
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -2444,7 +2491,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: The game will start in 5
+  m_Text: The game will start in 15
 --- !u!222 &1815943078
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -2518,7 +2565,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: Please put your right hand in the position you see and do the same pose!
+  m_Text: Please put your right hand in the position and pose you see on the screen!
 --- !u!222 &1827482031
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -2534,8 +2581,6 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 1742114622}
-  - component: {fileID: 1891766171}
-  - component: {fileID: 1891766170}
   m_Layer: 0
   m_Name: RequiredObjects
   m_TagString: Untagged
@@ -2543,29 +2588,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &1891766170
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1891766169}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5ba9010ad87194541be0ff9c319dd174, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_instanceId: 0
---- !u!114 &1891766171
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1891766169}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4e7c9a29943c96942b6e2b2609158d35, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &2080954704
 GameObject:
   m_ObjectHideFlags: 0
