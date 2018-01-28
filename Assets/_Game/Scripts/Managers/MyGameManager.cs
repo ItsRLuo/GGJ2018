@@ -31,9 +31,6 @@ public class MyGameManager : MonoBehaviour
 	
 	public GameMode GameMode = GameMode.NormalPlay;
 
-    //Game time limit
-    [SerializeField] private int m_timeLimit;
-
     //Audio
     [SerializeField] private AudioSource m_audioSource;
     [SerializeField] private AudioClip m_gameOverSound;
@@ -66,14 +63,6 @@ public class MyGameManager : MonoBehaviour
 		SetDefaultControllerValuesBasedOffOS(UserPlatform);
 	}
 
-    private void FixedUpdate()
-    {
-        --m_timeLimit;
-
-        if (m_timeLimit <= 0)
-            GameOver();
-    }
-
     #region Controller and Keyboard Controls
 
     public void SetDefaultControllerValuesBasedOffOS(RuntimePlatform userOS)
@@ -104,13 +93,13 @@ public class MyGameManager : MonoBehaviour
 		// TODO
 	}
 
-    private void Victory()
+    public void Victory()
     {
         m_audioSource.clip = m_victorySound;
         m_audioSource.Play();
     }
 
-    private void GameOver()
+    public void GameOver()
     {
         m_audioSource.clip = m_gameOverSound;
         m_audioSource.Play();
