@@ -15,9 +15,9 @@ public class pushButton : MonoBehaviour {
             for (float count = 0; count < 100; count += 0.01f)
             {
                 GameObject go = GameObject.Find("solodoor");
-                go.transform.position = new Vector3(go.transform.position.x - 0.0001f, go.transform.position.y, go.transform.position.z);
+                go.transform.position = new Vector3(go.transform.position.x + 0.0001f, go.transform.position.y, go.transform.position.z);
                 GameObject go2 = GameObject.Find("solodoor2");
-                go2.transform.position = new Vector3(go2.transform.position.x + 0.0001f, go2.transform.position.y, go2.transform.position.z);
+                go2.transform.position = new Vector3(go2.transform.position.x - 0.0001f, go2.transform.position.y, go2.transform.position.z);
             }
             this.gameObject.GetComponentInParent<pushControllers>().winningCon = "";
         }
@@ -31,7 +31,7 @@ public class pushButton : MonoBehaviour {
         {
             this.gameObject.SetActive(false);
             this.gameObject.GetComponentInParent<pushControllers>().winningCon += this.gameObject.name[this.gameObject.name.Length - 1];
-            //Debug.Log(this.gameObject.GetComponentInParent<pushControllers>().winningCon);
+            Debug.Log(this.gameObject.GetComponentInParent<pushControllers>().winningCon);
             //Debug.Log("6");
             //Debug.Log(this.gameObject.GetComponentInParent<pushControllers>().winningCon == "6");
             //if (this.gameObject.GetComponentInParent<pushControllers>().winningCon == "6")
