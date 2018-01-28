@@ -105,7 +105,10 @@ public class GrabController : MonoBehaviour
             // Perform drop script for the obj
             if (objToHold != null)
             {
-                objToHold.gameObject.GetComponent<PickupController>().DropMe();
+                if (objToHold.gameObject.GetComponent<PickupController>() != null)
+                {
+                    objToHold.gameObject.GetComponent<PickupController>().DropMe();
+                }
                 objToHold = null; // Done doing obj-drop specific script
             }
 
@@ -133,10 +136,10 @@ public class GrabController : MonoBehaviour
     {
         // For VRfeeGloves we need to check the rotation of Z-finger-segments because the glove doesn't use the r-model (joint) rotations
         isThumbInHoldPosition = IsFingerIsInHoldPositionX(myVRfreeGloveScript.thumb2Transform, minThumbGrabRotation, maxThumbGrabRotation);
-        isIndexInHoldPosition = IsFingerIsInHoldPositionZ(myVRfreeGloveScript.index2Transform, minFingerGrabRotation, maxFingerGrabRotation);
-        isMiddleInHoldPosition = IsFingerIsInHoldPositionZ(myVRfreeGloveScript.middle2Transform, minFingerGrabRotation, maxFingerGrabRotation);
-        isRingInHoldPosition = IsFingerIsInHoldPositionZ(myVRfreeGloveScript.ring2Transform, minFingerGrabRotation, maxFingerGrabRotation);
-        isPinkyInHoldPosition = IsFingerIsInHoldPositionZ(myVRfreeGloveScript.little2Transform, minFingerGrabRotation, maxFingerGrabRotation);
+        isIndexInHoldPosition = IsFingerIsInHoldPositionZ(myVRfreeGloveScript.index1Transform, minFingerGrabRotation, maxFingerGrabRotation);
+        isMiddleInHoldPosition = IsFingerIsInHoldPositionZ(myVRfreeGloveScript.middle1Transform, minFingerGrabRotation, maxFingerGrabRotation);
+        isRingInHoldPosition = IsFingerIsInHoldPositionZ(myVRfreeGloveScript.ring1Transform, minFingerGrabRotation, maxFingerGrabRotation);
+        isPinkyInHoldPosition = IsFingerIsInHoldPositionZ(myVRfreeGloveScript.little1Transform, minFingerGrabRotation, maxFingerGrabRotation);
     }
 
     private bool IsFingerIsInHoldPositionZ(Transform fingerTransform, float minAngle, float maxAngle)
