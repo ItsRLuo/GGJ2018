@@ -5,7 +5,7 @@ using UnityEngine;
 public class SwitchController : MonoBehaviour {
 
 	public float smooth = 2.0F;
-	public bool isTurnOn = false;
+	private bool isTurnOn = false;
 	private bool isLocked = false;
 
 	void OnTriggerEnter(){
@@ -29,10 +29,10 @@ public class SwitchController : MonoBehaviour {
 			var rotationVector = transform.rotation.eulerAngles;
 
 			if (!isTurnOn) {
-				rotationVector.z = -30;
+				rotationVector.y = -60;
 				isTurnOn = true;
 			} else {
-				rotationVector.z = 30;
+				rotationVector.y = 60;
 				isTurnOn = false;
 			}
 			transform.rotation = Quaternion.Euler (rotationVector);
