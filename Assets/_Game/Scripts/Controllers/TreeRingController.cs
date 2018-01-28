@@ -33,7 +33,7 @@ public class TreeRingController : MonoBehaviour {
 	}
 
 	void OnTriggerExit(){
-		// isTurn = false;
+		isTurn = false;
 	}
 	
 	// Update is called once per frame
