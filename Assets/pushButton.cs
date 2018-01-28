@@ -6,6 +6,7 @@ public class pushButton : MonoBehaviour {
     bool locked;
     // Use this for initialization
     void Start () {
+        Debug.Log("Asd");
     }
 	
 	// Update is called once per frame
@@ -13,6 +14,7 @@ public class pushButton : MonoBehaviour {
 	}
     void OnTriggerEnter(Collider other)
     {
-        this.enabled = false;
+        Debug.Log("qqq");
+        this.gameObject.SetActive(false);
     }
 }
