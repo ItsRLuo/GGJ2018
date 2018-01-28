@@ -79,7 +79,6 @@ public class KeyboardGloveController : MonoBehaviour
         {
             myVRGloveScript.enabled = false;
             this.transform.parent = Camera.main.transform;
-            originalPos.transform.position = this.transform.position;
         }
         else if (myVRGloveScript != null)
         {

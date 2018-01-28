@@ -36,13 +36,13 @@ public class CameraController : MonoBehaviour
 
         myCamera = gameObject.GetComponent<Camera>();
         OriginalDampTime = DampTime;
-
-        Debug.Log(CameraDistance.x + "," + CameraDistance.y + "," + CameraDistance.z);
+        
         CameraDistance = myCamera.WorldToViewportPoint(TargetObject.position);
     }
 
     private void Update()
     {
+        if (!MyGameManager._instance.isKeyboardControls) { return; }
         if (TargetObject)
         {
             Vector3 delta = TargetObject.position - myCamera.ViewportToWorldPoint(new Vector3(0.5f, 0.5f, CameraDistance.z / 1.75f));
