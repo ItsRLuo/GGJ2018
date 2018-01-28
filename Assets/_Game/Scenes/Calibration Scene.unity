@@ -2556,7 +2556,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: Please put your right hand in the position you see and do the same pose!
+  m_Text: Please put your right hand in the position and pose you see on the screen!
 --- !u!222 &1827482031
 CanvasRenderer:
   m_ObjectHideFlags: 0
