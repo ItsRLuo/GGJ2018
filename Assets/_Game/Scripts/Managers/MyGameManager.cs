@@ -103,6 +103,8 @@ public class MyGameManager : MonoBehaviour
     {
         m_audioSource.clip = m_gameOverSound;
         m_audioSource.Play();
+
+        Destroy(Camera.main.gameObject);
     }
 
     private void FadeToBlack()

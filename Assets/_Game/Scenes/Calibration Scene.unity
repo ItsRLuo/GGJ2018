@@ -900,6 +900,10 @@ MonoBehaviour:
   maxFingerGrabRotation: 180
   minThumbGrabRotation: 20
   maxThumbGrabRotation: 200
+  canPlayerGrabBuffer: 1
+  timeUntilCanGrab: 0.5
+  myVRfreeGloveScript: {fileID: 0}
+  objToFollow: {fileID: 0}
 --- !u!1 &772194839
 GameObject:
   m_ObjectHideFlags: 0
@@ -1757,7 +1761,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8f7258a1aabd53c4792eee10981f6652, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_nextScene: Level01
+  m_nextScene: GGJ2018 - Copy
 --- !u!4 &1448805246
 Transform:
   m_ObjectHideFlags: 0
@@ -2233,6 +2237,11 @@ MonoBehaviour:
   isKeyboardControls: 0
   UserPlatform: 0
   GameMode: 0
+  m_audioSource: {fileID: 0}
+  m_gameOverSound: {fileID: 0}
+  m_victorySound: {fileID: 0}
+  m_blackoutSphere: {fileID: 0}
+  m_fadeToBlackTime: 0
 --- !u!1 &1762785134
 GameObject:
   m_ObjectHideFlags: 0
