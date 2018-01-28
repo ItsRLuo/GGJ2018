@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.37311992, g: 0.38074034, b: 0.35872713, a: 1}
+  m_IndirectSpecularColor: {r: 0.37311918, g: 0.3807398, b: 0.35872716, a: 1}
 --- !u!157 &3
 LightmapSettings:
   m_ObjectHideFlags: 0
@@ -820,6 +820,21 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   isMatch: 0
+--- !u!54 &381591722
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 381591720}
+  serializedVersion: 2
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: 0.05
+  m_UseGravity: 0
+  m_IsKinematic: 0
+  m_Interpolate: 0
+  m_Constraints: 0
+  m_CollisionDetection: 0
 --- !u!1 &417978189 stripped
 GameObject:
   m_PrefabParentObject: {fileID: 100000, guid: 6dba0cf98d95c1c4f9ef2b4d684065f1, type: 3}
@@ -6297,7 +6312,8 @@ Prefab:
       propertyPath: m_audioSource
       value: 
       objectReference: {fileID: 625095275}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 54080235934129834, guid: 248a53981c3c13746bd04244b26ac4e9, type: 2}
   m_ParentPrefab: {fileID: 100100000, guid: 248a53981c3c13746bd04244b26ac4e9, type: 2}
   m_IsPrefabParent: 0
 --- !u!114 &2134812868 stripped
